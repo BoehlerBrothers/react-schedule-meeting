@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { createElement, useState, useEffect } from 'react';
 import { isValid, getDay, format, startOfMonth, differenceInMinutes, addMinutes, isSameDay, isSameMinute, isPast, subMonths, addMonths, subDays, addDays } from 'date-fns';
+import { de } from 'date-fns/locale';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import rgba from 'color-rgba';
@@ -205,9 +206,9 @@ const CancelButton = styled.button `
 const EventListItem = ({ onStartTimeSelect, startTimeEvent, selected, onCancelClicked, borderRadius, primaryColor, primaryColorFaded, }) => {
     return (React.createElement(Container, null,
         React.createElement(Button, { selected: Boolean(selected), borderRadius: borderRadius, primaryColorFaded: primaryColorFaded, primaryColor: primaryColor, onClick: onStartTimeSelect },
-            selected && 'Confirm ',
-            format(startTimeEvent.startTime, 'h:mm a')),
-        selected && (React.createElement(CancelButton, { borderRadius: borderRadius, onClick: onCancelClicked }, "Cancel"))));
+            format(startTimeEvent.startTime, 'HH:mm'),
+            selected && 'bestätigen '),
+        selected && (React.createElement(CancelButton, { borderRadius: borderRadius, onClick: onCancelClicked }, "Abbrechen"))));
 };
 
 const Container$1 = styled.div `
@@ -267,7 +268,7 @@ const EventList = ({ startTimeListItems = [], onStartTimeSelect, emptyListConten
         }
     };
     const emptyListElement = emptyListContentEl || (React.createElement(NoTimesAvailableContainer, null,
-        React.createElement(StyledP, null, "No times available")));
+        React.createElement(StyledP, null, "Keine verf\u00FCgbare Termine am ausgew\u00E4hlten Datum")));
     return (React.createElement(React.Fragment, null, startTimeListItems.length === 0 ? (emptyListElement) : (React.createElement(React.Fragment, null,
         React.createElement(ScrollEdgeFade, { className: "top" }),
         React.createElement(ScrollEdgeFade, { className: "bottom" }),
@@ -449,7 +450,7 @@ const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryCol
                 React.createElement(Header, null,
                     React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousMonth },
                         React.createElement(Arrow, { direction: "back" })),
-                    React.createElement(SelectedDayTitle, null, format(selectedDay, 'LLLL yyyy')),
+                    React.createElement(SelectedDayTitle, null, format(selectedDay, 'LLLL yyyy', { locale: de })),
                     React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextMonth },
                         React.createElement(Arrow, { direction: "forward" }))),
                 React.createElement(ScheduleCalendar, { borderRadius: borderRadius, primaryColor: primaryColorRGB, selectedDay: selectedDay, availableTimeslots: availableTimeslots, primaryColorFaded: primaryColorFaded, onDaySelected: onDaySelected })),
@@ -459,7 +460,7 @@ const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryCol
                     React.createElement(Header, null,
                         React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousDay },
                             React.createElement(Arrow, { direction: "back" })),
-                        React.createElement(SelectedDayTitle, null, format(selectedDay, 'cccc, LLLL do')),
+                        React.createElement(SelectedDayTitle, null, format(selectedDay, 'DD.MM.YYYY', { locale: de })),
                         React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextDay },
                             React.createElement(Arrow, { direction: "forward" }))),
                     React.createElement(EventList, { primaryColorFaded: primaryColorFaded, primaryColor: primaryColorRGB, borderRadius: borderRadius, emptyListContentEl: emptyListContentEl, onStartTimeSelect: _onStartTimeSelect, startTimeListItems: selectedDayStartTimeEventsList }))))));
