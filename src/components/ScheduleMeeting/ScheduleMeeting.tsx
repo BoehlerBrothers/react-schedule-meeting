@@ -11,6 +11,7 @@ import {
   subDays,
   subMonths,
 } from 'date-fns';
+import { de } from 'date-fns/locale';
 
 import { Arrow } from '../ArrowSVG';
 import ScheduleCalendar from './ScheduleCalendar';
@@ -289,7 +290,7 @@ export const ScheduleMeeting: React.FC<Props> = ({
             <ArrowButton borderRadius={borderRadius} onClick={goToPreviousMonth}>
               <Arrow direction="back" />
             </ArrowButton>
-            <SelectedDayTitle>{format(selectedDay, 'LLLL yyyy')}</SelectedDayTitle>
+            <SelectedDayTitle>{format(selectedDay, 'LLLL yyyy', { locale: de })}</SelectedDayTitle>
             <ArrowButton borderRadius={borderRadius} onClick={goToNextMonth}>
               <Arrow direction="forward" />
             </ArrowButton>
@@ -310,7 +311,7 @@ export const ScheduleMeeting: React.FC<Props> = ({
               <ArrowButton borderRadius={borderRadius} onClick={goToPreviousDay}>
                 <Arrow direction="back" />
               </ArrowButton>
-              <SelectedDayTitle>{format(selectedDay, 'cccc, LLLL do')}</SelectedDayTitle>
+              <SelectedDayTitle>{format(selectedDay, 'DD.MM.YYYY', { locale: de })}</SelectedDayTitle>
               <ArrowButton borderRadius={borderRadius} onClick={goToNextDay}>
                 <Arrow direction="forward" />
               </ArrowButton>

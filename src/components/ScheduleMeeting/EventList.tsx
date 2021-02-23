@@ -84,7 +84,7 @@ const EventList: React.FC<Props> = ({
 
   const emptyListElement = emptyListContentEl || (
     <NoTimesAvailableContainer>
-      <StyledP>No times available</StyledP>
+      <StyledP>Keine verfügbare Termine am ausgewählten Datum</StyledP>
     </NoTimesAvailableContainer>
   );
 
