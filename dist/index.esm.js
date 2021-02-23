@@ -206,7 +206,7 @@ const EventListItem = ({ onStartTimeSelect, startTimeEvent, selected, onCancelCl
     return (React.createElement(Container, null,
         React.createElement(Button, { selected: Boolean(selected), borderRadius: borderRadius, primaryColorFaded: primaryColorFaded, primaryColor: primaryColor, onClick: onStartTimeSelect },
             format(startTimeEvent.startTime, 'HH:mm'),
-            selected && 'bestätigen '),
+            selected && ' bestätigen'),
         selected && (React.createElement(CancelButton, { borderRadius: borderRadius, onClick: onCancelClicked }, "Abbrechen"))));
 };
 

@@ -81,7 +81,7 @@ const EventListItem: React.FC<Props> = ({
         onClick={onStartTimeSelect}
       >
         {format(startTimeEvent.startTime, 'HH:mm')}
-        {selected && 'bestätigen '}
+        {selected && ' bestätigen'}
       </Button>
       {selected && (
         <CancelButton borderRadius={borderRadius} onClick={onCancelClicked}>
