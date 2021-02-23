@@ -311,7 +311,7 @@ export const ScheduleMeeting: React.FC<Props> = ({
               <ArrowButton borderRadius={borderRadius} onClick={goToPreviousDay}>
                 <Arrow direction="back" />
               </ArrowButton>
-              <SelectedDayTitle>{format(selectedDay, 'DD.MM.YYYY', { locale: de })}</SelectedDayTitle>
+              <SelectedDayTitle>{format(selectedDay, 'dd.MM.yyyy', { locale: de })}</SelectedDayTitle>
               <ArrowButton borderRadius={borderRadius} onClick={goToNextDay}>
                 <Arrow direction="forward" />
               </ArrowButton>

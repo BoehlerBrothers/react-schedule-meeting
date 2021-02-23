@@ -1,16 +1,26 @@
-/* eslint-disable */
-import React, { createElement, useState, useEffect } from 'react';
-import { isValid, getDay, format, startOfMonth, differenceInMinutes, addMinutes, isSameDay, isSameMinute, isPast, subMonths, addMonths, subDays, addDays } from 'date-fns';
-import { de } from 'date-fns/locale';
-import 'react-calendar/dist/Calendar.css';
-import Calendar from 'react-calendar';
-import rgba from 'color-rgba';
-import styled from 'styled-components';
+'use strict';
 
-const Arrow = ({ direction }) => (createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "26", height: "26", viewBox: "0 0 512 512" },
-    createElement("path", { fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "48", d: direction === "back" ? "M328 112L184 256l144 144" : "M184.001 400L328.001 256L184.001 112" })));
+Object.defineProperty(exports, '__esModule', { value: true });
 
-const StyledCalendar = styled(Calendar) `
+var React = require('react');
+var dateFns = require('date-fns');
+var locale = require('date-fns/locale');
+require('react-calendar/dist/Calendar.css');
+var Calendar = require('react-calendar');
+var rgba = require('color-rgba');
+var styled = require('styled-components');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var Calendar__default = /*#__PURE__*/_interopDefaultLegacy(Calendar);
+var rgba__default = /*#__PURE__*/_interopDefaultLegacy(rgba);
+var styled__default = /*#__PURE__*/_interopDefaultLegacy(styled);
+
+const Arrow = ({ direction }) => (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "26", height: "26", viewBox: "0 0 512 512" },
+    React.createElement("path", { fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "48", d: direction === "back" ? "M328 112L184 256l144 144" : "M184.001 400L328.001 256L184.001 112" })));
+
+const StyledCalendar = styled__default['default'](Calendar__default['default']) `
   .day-tile {
     width: 60px;
     height: 60px;
@@ -131,20 +141,20 @@ const StyledCalendar = styled(Calendar) `
   }
 `;
 const formatDate = (date) => {
-    return format(date, 'MM/dd/yyyy');
+    return dateFns.format(date, 'MM/dd/yyyy');
 };
 const ScheduleCalendar = ({ availableTimeslots, onDaySelected, selectedDay, borderRadius, primaryColor, primaryColorFaded, }) => {
-    const [daysAvailable, setDaysAvailable] = useState([]);
-    const [r, g, b, alpha] = rgba(primaryColor) || [0, 0, 0, 1];
+    const [daysAvailable, setDaysAvailable] = React.useState([]);
+    const [r, g, b, alpha] = rgba__default['default'](primaryColor) || [0, 0, 0, 1];
     const primaryColorToday = `rgba(${r},${g},${b},${alpha / 4.5})`;
-    useEffect(() => {
+    React.useEffect(() => {
         const daysInTimeslots = availableTimeslots.map((slot) => {
-            if (!isValid(new Date(slot.startTime)))
+            if (!dateFns.isValid(new Date(slot.startTime)))
                 throw new Error(`Invalid date for start time on slot ${slot.id}`);
-            if (!isValid(new Date(slot.endTime)))
+            if (!dateFns.isValid(new Date(slot.endTime)))
                 throw new Error(`Invalid date for end time on slot ${slot.id}`);
-            const startTimeDay = getDay(new Date(slot.startTime));
-            const endTimeDay = getDay(new Date(slot.endTime));
+            const startTimeDay = dateFns.getDay(new Date(slot.startTime));
+            const endTimeDay = dateFns.getDay(new Date(slot.endTime));
             if (startTimeDay !== endTimeDay)
                 throw new Error('Days should match in Timeslot start and end time' + startTimeDay.toString + ' | ' + endTimeDay.toString);
             return formatDate(new Date(slot.startTime));
@@ -162,15 +172,15 @@ const ScheduleCalendar = ({ availableTimeslots, onDaySelected, selectedDay, bord
             return ['day-tile', 'active-day-tile'];
         return (props.view === 'month' && 'day-tile') || null;
     };
-    return (React.createElement(StyledCalendar, { borderRadius: borderRadius, primaryColor: primaryColor, primaryColorFaded: primaryColorFaded, primaryColorToday: primaryColorToday, defaultView: 'month', onClickDay: _onClickDay, showNavigation: false, tileDisabled: _isTileDisabled, tileClassName: _renderClassName, value: selectedDay, activeStartDate: startOfMonth(selectedDay) }));
+    return (React__default['default'].createElement(StyledCalendar, { borderRadius: borderRadius, primaryColor: primaryColor, primaryColorFaded: primaryColorFaded, primaryColorToday: primaryColorToday, defaultView: 'month', onClickDay: _onClickDay, showNavigation: false, tileDisabled: _isTileDisabled, tileClassName: _renderClassName, value: selectedDay, activeStartDate: dateFns.startOfMonth(selectedDay) }));
 };
 
-const Container = styled.div `
+const Container = styled__default['default'].div `
   display: flex;
   width: 100%;
   align-items: center;
 `;
-const Button = styled.button `
+const Button = styled__default['default'].button `
   padding: 16px;
   border: none;
   color: ${({ selected }) => (selected ? `rgb(255, 255, 255)` : `rgb(20,20,20)`)};
@@ -186,7 +196,7 @@ const Button = styled.button `
     background-color: ${({ selected, primaryColor, primaryColorFaded }) => selected ? primaryColor : primaryColorFaded};
   }
 `;
-const CancelButton = styled.button `
+const CancelButton = styled__default['default'].button `
   padding: 8px 24px;
   border: none;
   background-color: rgb(0, 0, 0, 0);
@@ -204,14 +214,14 @@ const CancelButton = styled.button `
   }
 `;
 const EventListItem = ({ onStartTimeSelect, startTimeEvent, selected, onCancelClicked, borderRadius, primaryColor, primaryColorFaded, }) => {
-    return (React.createElement(Container, null,
-        React.createElement(Button, { selected: Boolean(selected), borderRadius: borderRadius, primaryColorFaded: primaryColorFaded, primaryColor: primaryColor, onClick: onStartTimeSelect },
-            format(startTimeEvent.startTime, 'HH:mm'),
+    return (React__default['default'].createElement(Container, null,
+        React__default['default'].createElement(Button, { selected: Boolean(selected), borderRadius: borderRadius, primaryColorFaded: primaryColorFaded, primaryColor: primaryColor, onClick: onStartTimeSelect },
+            dateFns.format(startTimeEvent.startTime, 'HH:mm'),
             selected && 'bestätigen '),
-        selected && (React.createElement(CancelButton, { borderRadius: borderRadius, onClick: onCancelClicked }, "Abbrechen"))));
+        selected && (React__default['default'].createElement(CancelButton, { borderRadius: borderRadius, onClick: onCancelClicked }, "Abbrechen"))));
 };
 
-const Container$1 = styled.div `
+const Container$1 = styled__default['default'].div `
   position: relative;
   display: flex;
   flex-direction: column;
@@ -219,7 +229,7 @@ const Container$1 = styled.div `
   padding-bottom: 24px;
   padding-top: 16px;
 `;
-const ScrollEdgeFade = styled.div `
+const ScrollEdgeFade = styled__default['default'].div `
   position: absolute;
   width: 100%;
   height: 24px;
@@ -236,7 +246,7 @@ const ScrollEdgeFade = styled.div `
     background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0));
   }
 `;
-const ListItemDivider = styled.div `
+const ListItemDivider = styled__default['default'].div `
   flex-shrink: 0;
   flex: 1;
   padding: 0.5px;
@@ -244,12 +254,12 @@ const ListItemDivider = styled.div `
   position: relative;
   background: ${({ makeTransparent }) => (makeTransparent ? `transparent` : `rgba(0, 0, 0, 0.05)`)};
 `;
-const StyledP = styled.p `
+const StyledP = styled__default['default'].p `
   margin: 0;
   opacity: 0.5;
   margin-bottom: 24px;
 `;
-const NoTimesAvailableContainer = styled.div `
+const NoTimesAvailableContainer = styled__default['default'].div `
   height: 100%;
   flex: 1;
   width: 100%;
@@ -258,7 +268,7 @@ const NoTimesAvailableContainer = styled.div `
   align-items: center;
 `;
 const EventList = ({ startTimeListItems = [], onStartTimeSelect, emptyListContentEl, borderRadius, primaryColorFaded, primaryColor, }) => {
-    const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
+    const [selectedItemIndex, setSelectedItemIndex] = React.useState(-1);
     const _onStartTimeSelect = (startTimeEvent, index) => {
         if (selectedItemIndex === index) {
             onStartTimeSelect(startTimeEvent);
@@ -267,23 +277,23 @@ const EventList = ({ startTimeListItems = [], onStartTimeSelect, emptyListConten
             setSelectedItemIndex(index);
         }
     };
-    const emptyListElement = emptyListContentEl || (React.createElement(NoTimesAvailableContainer, null,
-        React.createElement(StyledP, null, "Keine verf\u00FCgbare Termine am ausgew\u00E4hlten Datum")));
-    return (React.createElement(React.Fragment, null, startTimeListItems.length === 0 ? (emptyListElement) : (React.createElement(React.Fragment, null,
-        React.createElement(ScrollEdgeFade, { className: "top" }),
-        React.createElement(ScrollEdgeFade, { className: "bottom" }),
-        React.createElement(Container$1, null, startTimeListItems.map((startTimeEvent, i) => (React.createElement(React.Fragment, { key: i },
-            React.createElement(EventListItem, { primaryColorFaded: primaryColorFaded, borderRadius: borderRadius, primaryColor: primaryColor, onCancelClicked: () => setSelectedItemIndex(-1), selected: i === selectedItemIndex, startTimeEvent: startTimeEvent, onStartTimeSelect: () => _onStartTimeSelect(startTimeEvent, i) }),
-            i !== startTimeListItems.length - 1 && (React.createElement(ListItemDivider, { makeTransparent: selectedItemIndex === i || selectedItemIndex === i + 1 }))))))))));
+    const emptyListElement = emptyListContentEl || (React__default['default'].createElement(NoTimesAvailableContainer, null,
+        React__default['default'].createElement(StyledP, null, "Keine verf\u00FCgbare Termine am ausgew\u00E4hlten Datum")));
+    return (React__default['default'].createElement(React__default['default'].Fragment, null, startTimeListItems.length === 0 ? (emptyListElement) : (React__default['default'].createElement(React__default['default'].Fragment, null,
+        React__default['default'].createElement(ScrollEdgeFade, { className: "top" }),
+        React__default['default'].createElement(ScrollEdgeFade, { className: "bottom" }),
+        React__default['default'].createElement(Container$1, null, startTimeListItems.map((startTimeEvent, i) => (React__default['default'].createElement(React__default['default'].Fragment, { key: i },
+            React__default['default'].createElement(EventListItem, { primaryColorFaded: primaryColorFaded, borderRadius: borderRadius, primaryColor: primaryColor, onCancelClicked: () => setSelectedItemIndex(-1), selected: i === selectedItemIndex, startTimeEvent: startTimeEvent, onStartTimeSelect: () => _onStartTimeSelect(startTimeEvent, i) }),
+            i !== startTimeListItems.length - 1 && (React__default['default'].createElement(ListItemDivider, { makeTransparent: selectedItemIndex === i || selectedItemIndex === i + 1 }))))))))));
 };
 
-const Container$2 = styled.div `
+const Container$2 = styled__default['default'].div `
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const Inner = styled.div `
+const Inner = styled__default['default'].div `
   display: flex;
   border-radius: ${({ borderRadius }) => borderRadius}px;
   box-shadow: 0 5px 22px rgba(20, 21, 21, 0.22), 0px 1px 4px rgba(20, 21, 21, 0.14);
@@ -299,7 +309,7 @@ const Inner = styled.div `
     margin: 8px;
   }
 `;
-const Divider = styled.div `
+const Divider = styled__default['default'].div `
   width: 1px;
   background: rgba(0, 0, 0, 0.1);
   margin: 16px;
@@ -308,10 +318,10 @@ const Divider = styled.div `
     height: 1px;
   }
 `;
-const CalendarContainer = styled.div `
+const CalendarContainer = styled__default['default'].div `
   flex: 1;
 `;
-const StartTimeListContainer = styled.div `
+const StartTimeListContainer = styled__default['default'].div `
   flex: 1;
   overflow: hidden;
   position: relative;
@@ -319,26 +329,26 @@ const StartTimeListContainer = styled.div `
     min-height: 301px;
   }
 `;
-const StartTimeListContainerAbsolute = styled.div `
+const StartTimeListContainerAbsolute = styled__default['default'].div `
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 `;
-const SelectedDayTitle = styled.h3 `
+const SelectedDayTitle = styled__default['default'].h3 `
   margin: 0;
   padding: 0;
   font-weight: 700;
 `;
-const Header = styled.div `
+const Header = styled__default['default'].div `
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
 `;
-const ArrowButton = styled.button `
+const ArrowButton = styled__default['default'].button `
   outline: none;
   background: none;
   border: none;
@@ -356,29 +366,29 @@ const ArrowButton = styled.button `
   }
 `;
 const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryColor = '#3f5b85', emptyListContentEl, eventStartTimeSpreadInMinutes = 0, eventDurationInMinutes = 30, onSelectedDayChange, onStartTimeSelect, scheduleMeetingStyles, }) => {
-    const [r, g, b, alpha] = rgba(primaryColor) || [0, 0, 0, 1];
+    const [r, g, b, alpha] = rgba__default['default'](primaryColor) || [0, 0, 0, 1];
     const primaryColorRGB = `rgba(${r},${g},${b},${alpha})`;
     const primaryColorFaded = `rgba(${r},${g},${b},${alpha / 9})`;
-    const [selectedDay, setSelectedDay] = React.useState(new Date());
-    const [startTimeEventsList, setStartTimeEventsList] = React.useState([]);
-    const [selectedDayStartTimeEventsList, setSelectedDayStartTimeEventsList] = React.useState([]);
+    const [selectedDay, setSelectedDay] = React__default['default'].useState(new Date());
+    const [startTimeEventsList, setStartTimeEventsList] = React__default['default'].useState([]);
+    const [selectedDayStartTimeEventsList, setSelectedDayStartTimeEventsList] = React__default['default'].useState([]);
     const onDaySelected = (day) => {
         setSelectedDay(day);
         onSelectedDayChange && onSelectedDayChange(day);
     };
     const splitTimeslot = (startTimeEvent) => {
         const splitTimeslots = [null, null];
-        const minutesIntoTimeslotEventWillStart = differenceInMinutes(startTimeEvent.startTime, new Date(startTimeEvent.availableTimeslot.startTime));
+        const minutesIntoTimeslotEventWillStart = dateFns.differenceInMinutes(startTimeEvent.startTime, new Date(startTimeEvent.availableTimeslot.startTime));
         if (minutesIntoTimeslotEventWillStart !== 0) {
             const newFirstTimeslot = {
                 oldId: startTimeEvent.availableTimeslot.id,
                 startTime: startTimeEvent.availableTimeslot.startTime,
-                endTime: addMinutes(new Date(startTimeEvent.availableTimeslot.startTime), minutesIntoTimeslotEventWillStart),
+                endTime: dateFns.addMinutes(new Date(startTimeEvent.availableTimeslot.startTime), minutesIntoTimeslotEventWillStart),
             };
             splitTimeslots[0] = newFirstTimeslot;
         }
-        const startTimeOfEndingSplitTimeslot = addMinutes(new Date(startTimeEvent.availableTimeslot.startTime), minutesIntoTimeslotEventWillStart + eventDurationInMinutes);
-        if (differenceInMinutes(startTimeOfEndingSplitTimeslot, new Date(startTimeEvent.availableTimeslot.endTime)) !== 0) {
+        const startTimeOfEndingSplitTimeslot = dateFns.addMinutes(new Date(startTimeEvent.availableTimeslot.startTime), minutesIntoTimeslotEventWillStart + eventDurationInMinutes);
+        if (dateFns.differenceInMinutes(startTimeOfEndingSplitTimeslot, new Date(startTimeEvent.availableTimeslot.endTime)) !== 0) {
             const newSecondTimeslot = {
                 oldId: startTimeEvent.availableTimeslot.id,
                 startTime: startTimeOfEndingSplitTimeslot,
@@ -395,18 +405,18 @@ const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryCol
             onStartTimeSelect(startTimeEventEmitObject);
         }
     };
-    useEffect(() => {
+    React.useEffect(() => {
         // compile a list of all possible event start times given all timeslots
         const startTimeEvents = [];
         // iterate through all available timeslots
         for (const availableTimeslot of availableTimeslots) {
-            const timeslotDuration = differenceInMinutes(new Date(availableTimeslot.endTime), new Date(availableTimeslot.startTime));
+            const timeslotDuration = dateFns.differenceInMinutes(new Date(availableTimeslot.endTime), new Date(availableTimeslot.startTime));
             // this prevents start times from being created where the event duration runs past the available timeslot
             let startTimesPossible = Math.floor(timeslotDuration / (eventDurationInMinutes + eventStartTimeSpreadInMinutes)) - 1;
             while (startTimesPossible >= 0) {
                 const newStartTimeEvent = {
                     availableTimeslot,
-                    startTime: addMinutes(new Date(availableTimeslot.startTime), startTimesPossible * (eventDurationInMinutes + eventStartTimeSpreadInMinutes)),
+                    startTime: dateFns.addMinutes(new Date(availableTimeslot.startTime), startTimesPossible * (eventDurationInMinutes + eventStartTimeSpreadInMinutes)),
                 };
                 startTimeEvents.push(newStartTimeEvent);
                 startTimesPossible--;
@@ -414,15 +424,15 @@ const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryCol
         }
         setStartTimeEventsList(startTimeEvents);
     }, [availableTimeslots, eventDurationInMinutes, eventStartTimeSpreadInMinutes]);
-    useEffect(() => {
+    React.useEffect(() => {
         const startTimeEventsToDisplay = [];
         // filter out startTimeEvents so we get the list of ones to display next to the calendar
         for (const startTimeEvent of startTimeEventsList) {
             // make sure its the same day as the selected day
-            if (isSameDay(startTimeEvent.startTime, selectedDay)) {
+            if (dateFns.isSameDay(startTimeEvent.startTime, selectedDay)) {
                 // prevents duplicate times (in case there are multiple overlapping shifts)
-                if (startTimeEventsToDisplay.filter((item) => isSameMinute(item.startTime, startTimeEvent.startTime)).length === 0) {
-                    if (!isPast(startTimeEvent.startTime)) {
+                if (startTimeEventsToDisplay.filter((item) => dateFns.isSameMinute(item.startTime, startTimeEvent.startTime)).length === 0) {
+                    if (!dateFns.isPast(startTimeEvent.startTime)) {
                         startTimeEventsToDisplay.push(startTimeEvent);
                     }
                 }
@@ -433,37 +443,37 @@ const ScheduleMeeting = ({ availableTimeslots = [], borderRadius = 0, primaryCol
         setSelectedDayStartTimeEventsList(orderedEvents);
     }, [selectedDay, startTimeEventsList]);
     const goToPreviousMonth = () => {
-        setSelectedDay(subMonths(selectedDay, 1));
+        setSelectedDay(dateFns.subMonths(selectedDay, 1));
     };
     const goToNextMonth = () => {
-        setSelectedDay(addMonths(selectedDay, 1));
+        setSelectedDay(dateFns.addMonths(selectedDay, 1));
     };
     const goToPreviousDay = () => {
-        setSelectedDay(subDays(selectedDay, 1));
+        setSelectedDay(dateFns.subDays(selectedDay, 1));
     };
     const goToNextDay = () => {
-        setSelectedDay(addDays(selectedDay, 1));
+        setSelectedDay(dateFns.addDays(selectedDay, 1));
     };
-    return (React.createElement(Container$2, null,
-        React.createElement(Inner, { borderRadius: borderRadius, style: scheduleMeetingStyles },
-            React.createElement(CalendarContainer, null,
-                React.createElement(Header, null,
-                    React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousMonth },
-                        React.createElement(Arrow, { direction: "back" })),
-                    React.createElement(SelectedDayTitle, null, format(selectedDay, 'LLLL yyyy', { locale: de })),
-                    React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextMonth },
-                        React.createElement(Arrow, { direction: "forward" }))),
-                React.createElement(ScheduleCalendar, { borderRadius: borderRadius, primaryColor: primaryColorRGB, selectedDay: selectedDay, availableTimeslots: availableTimeslots, primaryColorFaded: primaryColorFaded, onDaySelected: onDaySelected })),
-            React.createElement(Divider, null),
-            React.createElement(StartTimeListContainer, null,
-                React.createElement(StartTimeListContainerAbsolute, null,
-                    React.createElement(Header, null,
-                        React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousDay },
-                            React.createElement(Arrow, { direction: "back" })),
-                        React.createElement(SelectedDayTitle, null, format(selectedDay, 'dd.MM.yyyy', { locale: de })),
-                        React.createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextDay },
-                            React.createElement(Arrow, { direction: "forward" }))),
-                    React.createElement(EventList, { primaryColorFaded: primaryColorFaded, primaryColor: primaryColorRGB, borderRadius: borderRadius, emptyListContentEl: emptyListContentEl, onStartTimeSelect: _onStartTimeSelect, startTimeListItems: selectedDayStartTimeEventsList }))))));
+    return (React__default['default'].createElement(Container$2, null,
+        React__default['default'].createElement(Inner, { borderRadius: borderRadius, style: scheduleMeetingStyles },
+            React__default['default'].createElement(CalendarContainer, null,
+                React__default['default'].createElement(Header, null,
+                    React__default['default'].createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousMonth },
+                        React__default['default'].createElement(Arrow, { direction: "back" })),
+                    React__default['default'].createElement(SelectedDayTitle, null, dateFns.format(selectedDay, 'LLLL yyyy', { locale: locale.de })),
+                    React__default['default'].createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextMonth },
+                        React__default['default'].createElement(Arrow, { direction: "forward" }))),
+                React__default['default'].createElement(ScheduleCalendar, { borderRadius: borderRadius, primaryColor: primaryColorRGB, selectedDay: selectedDay, availableTimeslots: availableTimeslots, primaryColorFaded: primaryColorFaded, onDaySelected: onDaySelected })),
+            React__default['default'].createElement(Divider, null),
+            React__default['default'].createElement(StartTimeListContainer, null,
+                React__default['default'].createElement(StartTimeListContainerAbsolute, null,
+                    React__default['default'].createElement(Header, null,
+                        React__default['default'].createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToPreviousDay },
+                            React__default['default'].createElement(Arrow, { direction: "back" })),
+                        React__default['default'].createElement(SelectedDayTitle, null, dateFns.format(selectedDay, 'dd.MM.yyyy', { locale: locale.de })),
+                        React__default['default'].createElement(ArrowButton, { borderRadius: borderRadius, onClick: goToNextDay },
+                            React__default['default'].createElement(Arrow, { direction: "forward" }))),
+                    React__default['default'].createElement(EventList, { primaryColorFaded: primaryColorFaded, primaryColor: primaryColorRGB, borderRadius: borderRadius, emptyListContentEl: emptyListContentEl, onStartTimeSelect: _onStartTimeSelect, startTimeListItems: selectedDayStartTimeEventsList }))))));
 };
 
-export { ScheduleMeeting };
+exports.ScheduleMeeting = ScheduleMeeting;

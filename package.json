@@ -1,16 +1,20 @@
 {
-  "name": "react-schedule-meeting",
-  "version": "0.2.1",
+  "name": "react-schedule-meeting-german",
+  "version": "0.2.3",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "homepage": "https://react-schedule-meeting.netlify.app",
-  "repository": "git@github.com:TylerAHolden/react-schedule-meeting.git",
+  "repository": "git@github.com:BoehlerBrothers/react-schedule-meeting.git",
   "license": "MIT",
   "author": "Tyler Holden",
   "contributors": [
     {
       "name": "Tyler Holden",
-      "url": "https://github.com/TylerAHolden"
+      "url": "https://github.com/BoehlerBrothers"
+    },
+    {
+      "name": "Lukas Böhler",
+      "url": "https://github.com/BoehlerBrothers"
     },
     {
       "name": "Justin Mozley",
